@@ -10,6 +10,6 @@ duration_choices = {
 }
 
 sickness_choices = {
-    i.id: i.name for i in Sickness.objects.all().order_by('name')
+    i.id: i.name for i in Sickness.objects.all()
 }
         

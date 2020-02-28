@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="addrec">
+    <p class="addrec-header">Add a Medical Record</p>
+    <div class="addrec-container">
+        <form method="POST">{% csrf_token %}
+            <div class="form-group">
+                {% for field in form %}
+                    <label>{{field.label_tag}}</label>
+                    {{field}}
+                {% endfor %}
+            </div>
+            <button type="submit">Add Record</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

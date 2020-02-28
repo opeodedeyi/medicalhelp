@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if result %}
+<div class="medical-records">
+    <p class="medical-title">Medical records</p>
+    <div class="cards">
+
+        {% for record in result %}
+        <div class="card">
+            <p class="card-name">{{ record.user.username }}</p>
+            <p class="card-diagnostics">{{ record.sickness }}</p>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% else %}
+<div class="not-allowed">
+    <div class="not-allowed-container">
+        <p class="not-allowed-text">There are currently no medical record by any patient</p>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

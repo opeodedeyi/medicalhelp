@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if request.user.medical_practitioner == "YES" %}
+
+    <!-- start -->
+    {% if result %}
+    <div class="statistics-main">
+
+        <div class="filter">
+            <form action="{% url 'statistics' %}">
+                <div class="filters">
+                    <div class="filters-title">Filter</div>
+
+                    <select name="sickness" class="filters-cont filters-mid">
+                        <option disabled="disabled" selected="True">sickness</option>
+                        {% for key,value in sickness_choices.items %}
+                            <option value="{{key}}">{{value}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <select name="duration" class="filters-cont filters-last">
+                        <option disabled="disabled" selected="True">duration</option>
+                        {% for key,value in duration_choices.items %}
+                            <option value="{{key}}">{{value}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit">Search</button>
+
+            </form>
+        </div>
+
+        <table class="table-fill">
+            <thead>
+                <tr>
+                    <th class="text-left">name</th>
+                    <th class="text-left">sickness</th>
+                    <th class="text-left">duration</th>
+                    <th class="text-left">location</th>
+                </tr>
+            </thead>
+            <tbody class="table-hover">
+
+                {% for record in result %}
+                <tr>
+                    <td class="text-left">{{ record.user.username }}</td>
+                    <td class="text-left">{{ record.sickness }}</td>
+                    <td class="text-left">{{ record.duration }}</td>
+                    <td class="text-left">{{ record.location }}</td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+
+    <div class="not">
+        
+        <div class="filter">
+            <form action="{% url 'statistics' %}">
+                <div class="filters">
+                    <div class="filters-title">Filter</div>
+
+                    <select name="sickness" class="filters-cont filters-mid">
+                        <option disabled="disabled" selected="True">sickness</option>
+                        {% for key,value in sickness_choices.items %}
+                            <option value="{{key}}">{{value}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <select name="duration" class="filters-cont filters-last">
+                        <option disabled="disabled" selected="True">duration</option>
+                        {% for key,value in duration_choices.items %}
+                            <option value="{{key}}">{{value}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit">Search</button>
+
+            </form>
+        </div>
+
+        <div class="not-container">
+            <p class="not-text">There are currently no statistics to show for any patient</p>
+        </div>
+        
+    </div>
+    {% endif %}
+    <!-- end -->
+
+{% else %}
+<div class="not-allowed">
+    <div class="not-allowed-container">
+        <p class="not-allowed-text">You are not allowed to view this page as you are not a medical practitioner</p>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
